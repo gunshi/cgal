@@ -123,29 +123,19 @@ int sign_of(const CGAL::Plane_3<R>& h)
 }
 
 struct Plane_lt {
-    template <typename R>
-    bool operator()(const CGAL::Plane_3<R>& h1,
-                    const CGAL::Plane_3<R>& h2) const
-    {
-        typedef typename R::RT     RT;
-        RT ratioa=h1.a()/h2.a();
-        RT ratiob=h1.b()/h2.b();
-        RT ratioc=h1.c()/h2.c();
-        RT ratiod=h1.d()/h2.d();
-        
-        if(!(ratioa==ratiob && ratioc==ratiod && ratioa==ratioc))
-        {
-        RT diff = h1.a()-h2.a();
-        if ( (diff) != 0 ) return CGAL_NTS sign(diff) < 0;
-        diff = h1.b()-h2.b();
-        if ( (diff) != 0 ) return CGAL_NTS sign(diff) < 0;
-        diff = h1.c()-h2.c();
-        if ( (diff) != 0 ) return CGAL_NTS sign(diff) < 0;
-        diff = h1.d()-h2.d();
-        if ( (diff) != 0 ) return CGAL_NTS sign(diff) < 0;
-        }
-        return 0;
-    }
+  template <typename R>
+  bool operator()(const CGAL::Plane_3<R>& h1,
+                  const CGAL::Plane_3<R>& h2) const
+  { 
+    typedef typename R::RT     RT;
+    RT diff = h1.a()-h2.a();
+    if ( (diff) != 0 ) return CGAL_NTS sign(diff) < 0;
+    diff = h1.b()-h2.b();
+    if ( (diff) != 0 ) return CGAL_NTS sign(diff) < 0;
+    diff = h1.c()-h2.c();
+    if ( (diff) != 0 ) return CGAL_NTS sign(diff) < 0;
+    diff = h1.d()-h2.d(); return CGAL_NTS sign(diff) < 0;
+  }
 };
 
 struct Plane_RT_lt {
